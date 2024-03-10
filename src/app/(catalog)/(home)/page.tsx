@@ -5,7 +5,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 async function getAnimes(): Promise<Data[]> {
-  const response = await api('/anime')
+  const response = await api('/anime', {
+    next: {
+      revalidate: 60 * 60,
+    },
+  })
 
   const { data } = await response.json()
 
