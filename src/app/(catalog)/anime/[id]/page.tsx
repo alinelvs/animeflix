@@ -1,5 +1,5 @@
 import { api } from '@/data/api'
-import { Anime, Data } from '@/data/types/anime'
+import { Data } from '@/data/types/anime'
 import { BookmarkPlus, ThumbsUp } from 'lucide-react'
 import { Metadata } from 'next'
 import Image from 'next/image'
