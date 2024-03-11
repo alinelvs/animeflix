@@ -19,7 +19,7 @@ async function getAnime(id: string): Promise<Data> {
 
   const { data } = await response.json()
 
-  const defaultImage = '/one-piece.png'
+  const defaultImage = '/image_empty.png'
 
   if (data.attributes.coverImage === null) {
     return {
