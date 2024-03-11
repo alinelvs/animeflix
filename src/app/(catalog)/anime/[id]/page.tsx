@@ -1,6 +1,7 @@
 import { api } from '@/data/api'
 import { Data } from '@/data/types/anime'
 import { BookmarkPlus, ThumbsUp } from 'lucide-react'
+import { Metadata } from 'next'
 import Image from 'next/image'
 
 interface AnimeProps {
@@ -36,15 +37,25 @@ async function getAnime(id: string): Promise<Data> {
   return data
 }
 
+export async function generateMetadata({
+  params,
+}: AnimeProps): Promise<Metadata> {
+  const { attributes } = await getAnime(params.id)
+
+  return {
+    title: attributes.canonicalTitle,
+  }
+}
+
 export default async function AnimePage({ params }: AnimeProps) {
-  const anime = await getAnime(params.id)
+  const { attributes } = await getAnime(params.id)
 
   return (
     <div className="relative grid max-h-[850px] grid-cols-3">
       <div className="group relative col-span-2 overflow-hidden rounded-lg">
         <Image
           className="h-full rounded-lg transition-transform duration-500 group-hover:scale-105"
-          src={anime.attributes.coverImage.original}
+          src={attributes.coverImage.original}
           alt=""
           width={1000}
           height={1000}
@@ -54,11 +65,11 @@ export default async function AnimePage({ params }: AnimeProps) {
 
       <div className="flex flex-col justify-center px-12">
         <h1 className="text-3xl font-bold leading-tight">
-          {anime.attributes.canonicalTitle}
+          {attributes.canonicalTitle}
         </h1>
 
         <p className="mt-2 leading-relaxed text-zinc-400">
-          {anime.attributes.synopsis}
+          {attributes.synopsis}
         </p>
 
         <div className="mt-12 space-y-4">

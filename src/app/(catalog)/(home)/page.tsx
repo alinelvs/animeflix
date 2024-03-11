@@ -1,6 +1,7 @@
 import { api } from '@/data/api'
 import { Data } from '@/data/types/anime'
 import { PlayCircle } from 'lucide-react'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -35,6 +36,10 @@ async function getAnimes(): Promise<Data[]> {
   })
 
   return animeProcessed
+}
+
+export const metadata: Metadata = {
+  title: 'Home',
 }
 
 export default async function Home() {
