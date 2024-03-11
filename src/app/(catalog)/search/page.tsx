@@ -64,7 +64,7 @@ export default async function Search({ searchParams }: SearchProps) {
           <Link
             key={id}
             href={`/anime/${id}`}
-            className="group relative overflow-hidden rounded-lg"
+            className="group relative h-[400px] w-[400px] overflow-hidden rounded-lg"
           >
             <Image
               src={attributes.coverImage.original}
