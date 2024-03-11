@@ -46,7 +46,7 @@ export default async function Home() {
         return (
           <Link
             key={id}
-            href={`/anime/${attributes.slug}`}
+            href={`/anime/${id}`}
             className="group relative overflow-hidden rounded-lg"
           >
             <Image

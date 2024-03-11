@@ -1,12 +1,50 @@
+import { api } from '@/data/api'
+import { Data } from '@/data/types/anime'
 import { BookmarkPlus, ThumbsUp } from 'lucide-react'
 import Image from 'next/image'
 
-export default function AnimePage() {
+interface AnimeProps {
+  params: {
+    id: string
+  }
+}
+
+async function getAnime(id: string): Promise<Data> {
+  const response = await api(`/anime/${id}`, {
+    next: {
+      revalidate: 60 * 60,
+    },
+  })
+
+  const { data } = await response.json()
+
+  const defaultImage = '/one-piece.png'
+
+  if (data.attributes.coverImage === null) {
+    return {
+      ...data,
+      attributes: {
+        ...data.attributes,
+        coverImage: {
+          ...data.attributes.coverImage,
+          original: defaultImage,
+        },
+      },
+    }
+  }
+
+  return data
+}
+
+export default async function AnimePage({ params }: AnimeProps) {
+  const anime = await getAnime(params.id)
+
   return (
     <div className="relative grid max-h-[850px] grid-cols-3">
-      <div className="col-span-2 overflow-hidden">
+      <div className="group relative col-span-2 overflow-hidden rounded-lg">
         <Image
-          src="/one-piece.png"
+          className="h-full rounded-lg transition-transform duration-500 group-hover:scale-105"
+          src={anime.attributes.coverImage.original}
           alt=""
           width={1000}
           height={1000}
@@ -15,9 +53,13 @@ export default function AnimePage() {
       </div>
 
       <div className="flex flex-col justify-center px-12">
-        <h1 className="text-3xl font-bold leading-tight">One Piece</h1>
+        <h1 className="text-3xl font-bold leading-tight">
+          {anime.attributes.canonicalTitle}
+        </h1>
 
-        <p className="mt-2 leading-relaxed text-zinc-400">Anime muito bom</p>
+        <p className="mt-2 leading-relaxed text-zinc-400">
+          {anime.attributes.synopsis}
+        </p>
 
         <div className="mt-12 space-y-4">
           <div className="flex gap-2">

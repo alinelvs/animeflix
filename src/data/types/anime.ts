@@ -152,7 +152,7 @@ export interface Data {
 }
 
 export interface Anime {
-  data: Data[]
+  data: Data
   meta: Meta3
   links: Links3
 }
