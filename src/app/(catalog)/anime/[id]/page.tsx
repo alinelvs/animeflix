@@ -1,5 +1,5 @@
 import { api } from '@/data/api'
-import { Data } from '@/data/types/anime'
+import { Anime, Data } from '@/data/types/anime'
 import { BookmarkPlus, ThumbsUp } from 'lucide-react'
 import { Metadata } from 'next'
 import Image from 'next/image'
@@ -45,6 +45,17 @@ export async function generateMetadata({
   return {
     title: attributes.canonicalTitle,
   }
+}
+
+export async function generateStaticParams() {
+  const response = await api('/anime')
+  const anime = await response.json()
+
+  const data: Data[] = anime.data
+
+  return data.map((anime: Data) => {
+    return { id: anime.id }
+  })
 }
 
 export default async function AnimePage({ params }: AnimeProps) {
