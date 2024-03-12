@@ -61,20 +61,36 @@ export async function generateStaticParams() {
 export default async function AnimePage({ params }: AnimeProps) {
   const { attributes } = await getAnime(params.id)
 
+  const showVideo = attributes.youtubeVideoId !== null
+
   return (
     <div className="relative grid max-h-[850px] grid-cols-3">
       <div className="group relative col-span-2 overflow-hidden rounded-lg">
-        <Image
-          className="h-full rounded-lg transition-transform duration-500 group-hover:scale-105"
-          src={attributes.coverImage.original}
-          alt=""
-          width={1000}
-          height={1000}
-          quality={100}
-        />
+        {showVideo ? (
+          <div className="aspect-w-16 aspect-h-9 h-[520px]">
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src={`https://www.youtube.com/embed/${attributes.youtubeVideoId}`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        ) : (
+          <div className="h-[520px] w-full">
+            <Image
+              className="h-full rounded-lg transition-transform duration-500 group-hover:scale-105"
+              src={attributes.coverImage.original}
+              alt=""
+              width={1000}
+              height={1000}
+              quality={100}
+            />
+          </div>
+        )}
       </div>
 
-      <div className="flex flex-col justify-center px-12">
+      <div className="justify-star flex flex-col px-12">
         <h1 className="text-3xl font-bold leading-tight">
           {attributes.canonicalTitle}
         </h1>
@@ -87,7 +103,7 @@ export default async function AnimePage({ params }: AnimeProps) {
           <div className="flex gap-2">
             <button
               type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-800 text-sm font-semibold"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-pink-500 text-sm font-semibold"
             >
               <ThumbsUp className="h-4 w-4" />
             </button>
@@ -99,13 +115,6 @@ export default async function AnimePage({ params }: AnimeProps) {
             </button>
           </div>
         </div>
-
-        <button
-          type="button"
-          className="mt-8 flex h-12 items-center justify-center rounded-full bg-pink-500 font-semibold text-white"
-        >
-          Preview
-        </button>
       </div>
     </div>
   )
