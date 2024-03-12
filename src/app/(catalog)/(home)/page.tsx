@@ -48,20 +48,32 @@ export default async function Home() {
   return (
     <div className="grid grid-cols-3 gap-6">
       {animes.map(({ id, attributes }) => {
+        const MAX_LENGTH = 200
+        let synopsis = attributes.synopsis
+
+        if (synopsis.length > MAX_LENGTH) {
+          synopsis = synopsis.substring(0, MAX_LENGTH).trim()
+          const lastSpaceIndex = synopsis.lastIndexOf(' ')
+          synopsis = synopsis.substring(0, lastSpaceIndex) + '...'
+        }
+
         return (
           <Link
             key={id}
             href={`/anime/${id}`}
             className="group relative h-[400px] w-[400px] overflow-hidden rounded-lg"
           >
-            <Image
-              src={attributes.coverImage.original}
-              className="h-full transition-transform duration-500 group-hover:scale-105"
-              width={920}
-              height={920}
-              quality={100}
-              alt=""
-            />
+            <div className="relative h-full w-full">
+              <Image
+                src={attributes.coverImage.original}
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                layout="fill"
+                alt=""
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-0 text-center opacity-0 transition-opacity duration-300 group-hover:bg-opacity-50 group-hover:opacity-100">
+                <span className="px-4 text-sm text-white">{synopsis}</span>
+              </div>
+            </div>
             <div className="absolute bottom-4 left-4 right-4 bg-black bg-opacity-50 p-2 text-center text-white">
               <span className="truncate text-sm">
                 {attributes.canonicalTitle}
