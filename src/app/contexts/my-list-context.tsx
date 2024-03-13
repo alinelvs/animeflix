@@ -11,6 +11,7 @@ interface MyListItem {
 interface MyListContextType {
   myList: MyListItem[]
   addToList: (animeId: string, attributes: Data['attributes']) => void
+  removeFromList: (animeId: string) => void
 }
 
 const MyListContext = createContext({} as MyListContextType)
@@ -19,19 +20,15 @@ export function MyListProvider({ children }: { children: ReactNode }) {
   const [myList, setMyList] = useState<MyListItem[]>([])
 
   function addToList(animeId: string, attributes: Data['attributes']) {
-    setMyList((state) => {
-      const animeInList = state.some((item) => item.animeId === animeId)
+    setMyList((state) => [...state, { animeId, attributes }])
+  }
 
-      if (animeInList) {
-        return state
-      } else {
-        return [...state, { animeId, attributes }]
-      }
-    })
+  function removeFromList(animeId: string) {
+    setMyList((state) => state.filter((item) => item.animeId !== animeId))
   }
 
   return (
-    <MyListContext.Provider value={{ myList, addToList }}>
+    <MyListContext.Provider value={{ myList, addToList, removeFromList }}>
       {children}
     </MyListContext.Provider>
   )

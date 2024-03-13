@@ -1,9 +1,8 @@
 import { api } from '@/data/api'
 import { Data } from '@/data/types/anime'
-import { ThumbsUp } from 'lucide-react'
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { AddMyListButton } from './add-my-list-button'
+import { MyListButton } from './my-list-button'
 
 interface AnimeProps {
   params: {
@@ -102,14 +101,7 @@ export default async function AnimePage({ params }: AnimeProps) {
 
         <div className="mt-12 space-y-4">
           <div className="flex gap-2">
-            <button
-              type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-pink-500 text-sm font-semibold"
-            >
-              <ThumbsUp className="h-4 w-4" />
-            </button>
-
-            <AddMyListButton animeId={params.id} attributes={attributes} />
+            <MyListButton animeId={params.id} attributes={attributes} />
           </div>
         </div>
       </div>
