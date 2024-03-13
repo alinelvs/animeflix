@@ -35,7 +35,7 @@ export function SearchForm() {
       <input
         name="q"
         defaultValue={query ?? ''}
-        placeholder="Buscar animes..."
+        placeholder="Search animes..."
         className="flex-1 bg-transparent text-sm outline-none placeholder:text-zinc-500"
         required
       />

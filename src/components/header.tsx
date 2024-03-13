@@ -18,14 +18,14 @@ export function Header() {
         <Link href="/my-list">
           <div className="flex items-center gap-2">
             <Bookmark className="h-4 w-4" />
-            <span className="text-sm">Salvos</span>
+            <span className="text-sm">My List</span>
           </div>
         </Link>
 
         <div className="h-4 w-px bg-zinc-700" />
 
         <Link href="" className="flex items-center gap-2 hover:underline">
-          <span className="text-sm">Perfil</span>
+          <span className="text-sm">Profile</span>
           <Image
             src="https://github.com/alinelvs.png"
             className="h-6 w-6 rounded-full"

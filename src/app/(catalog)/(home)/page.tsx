@@ -80,7 +80,7 @@ export default async function Home() {
               </span>
               <span className="mt-2 flex items-center justify-center rounded-full bg-pink-500 p-1">
                 <PlayCircle className="h-6 w-6" />
-                <span className="ml-2 font-semibold">Assistir</span>
+                <span className="ml-2 font-semibold">Watch</span>
               </span>
             </div>
           </Link>
