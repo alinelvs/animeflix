@@ -1,8 +1,9 @@
 import { api } from '@/data/api'
 import { Data } from '@/data/types/anime'
-import { BookmarkPlus, ThumbsUp } from 'lucide-react'
+import { ThumbsUp } from 'lucide-react'
 import { Metadata } from 'next'
 import Image from 'next/image'
+import { AddMyListButton } from './add-my-list-button'
 
 interface AnimeProps {
   params: {
@@ -107,12 +108,8 @@ export default async function AnimePage({ params }: AnimeProps) {
             >
               <ThumbsUp className="h-4 w-4" />
             </button>
-            <button
-              type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-800 text-sm font-semibold"
-            >
-              <BookmarkPlus className="h-4 w-4" />
-            </button>
+
+            <AddMyListButton animeId={params.id} attributes={attributes} />
           </div>
         </div>
       </div>

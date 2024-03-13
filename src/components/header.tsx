@@ -15,10 +15,12 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <Bookmark className="h-4 w-4" />
-          <span className="text-sm">Salvos</span>
-        </div>
+        <Link href="/my-list">
+          <div className="flex items-center gap-2">
+            <Bookmark className="h-4 w-4" />
+            <span className="text-sm">Salvos</span>
+          </div>
+        </Link>
 
         <div className="h-4 w-px bg-zinc-700" />
 
