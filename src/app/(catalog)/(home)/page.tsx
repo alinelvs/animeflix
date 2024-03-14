@@ -75,9 +75,7 @@ export default async function Home() {
               </div>
             </div>
             <div className="absolute bottom-4 left-4 right-4 bg-black bg-opacity-50 p-2 text-center text-white">
-              <span className="truncate text-sm">
-                {attributes.canonicalTitle}
-              </span>
+              <p className="truncate text-sm">{attributes.canonicalTitle}</p>
               <span className="mt-2 flex items-center justify-center rounded-full bg-pink-500 p-1">
                 <PlayCircle className="h-6 w-6" />
                 <span className="ml-2 font-semibold">Watch</span>
